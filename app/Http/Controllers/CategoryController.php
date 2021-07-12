@@ -20,15 +20,30 @@ class CategoryController extends Controller
         $category->category_slug=$this->slugify($request->category_name);
         $category->save();
         return redirect()->back()->with('success','Category Added Successfully');
+    }
+    public function removecategory($id){
+        Category::find( $id)->delete();
+        return redirect()->back()->with('delete','Category Delete Successfully');
+    }
+    public function categorystatus($id,$status){
+        $category=Category::find($id);
+        $category->status=$status;
+        $category->save();
+        return response()->json(['message','success']);
 
     }
-
-
-
-
-
-
-
+    public function editCategory($id){
+        $category=Category::find($id);
+        return view('admin.categroy.categoryedit',compact('category'));
+    }
+    public function updatecategory (Request $request){
+        $id=$request->id;
+        Category::find($id)->update([
+            'category_name'=>$request->category_name,
+            'category_slug'=>$this->slugify($request->category_name),
+        ]);
+        return redirect()->route('manage-category')->with('success','Category Update Successfully');
+    }
 
 
     public function slugify($text){

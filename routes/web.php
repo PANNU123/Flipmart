@@ -38,8 +38,13 @@ Route::get('/brand/brandstatus/{id}/{s}', [App\Http\Controllers\BrandController:
 //***************Category Route*************//
 Route::get('/category/add-category', [App\Http\Controllers\CategoryController::class, 'addcategory'])->name('add-category');
 Route::post('/category/save-category', [App\Http\Controllers\CategoryController::class, 'saveategory'])->name('save-category');
-
 Route::get('/category/manage-category', [App\Http\Controllers\CategoryController::class, 'manageCategory'])->name('manage-category');
+Route::get('/category/categorystatus/{id}/{s}', [App\Http\Controllers\CategoryController::class, 'categorystatus']);
+Route::get('category/delete/{id}',[App\Http\Controllers\CategoryController::class, 'removecategory']);
+Route::get('category/edit/{id}', [App\Http\Controllers\CategoryController::class, 'editCategory']);
+Route::post('/category/update-category', [App\Http\Controllers\CategoryController::class, 'updatecategory'])->name('update-category');
+
+
 
 
 

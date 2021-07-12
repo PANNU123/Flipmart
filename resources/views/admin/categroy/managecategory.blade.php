@@ -56,16 +56,16 @@
                                                                 @else()
                                                                 <span class="badge bg-danger">Inacitve</span>
                                                                 @endif --}}
-                                                                <input type="checkbox" data-size="mini" data-toggle="toggle" data-on="Active" data-off="Inactive" id="brandstatus"  data-id="{{$row->id}}" {{ $row->status==1 ? 'checked' :''}}>
+                                                                <input type="checkbox" data-size="mini" data-toggle="toggle" data-on="Active" data-off="Inactive" id="Categorystatus"  data-id="{{$row->id}}" {{ $row->status==1 ? 'checked' :''}}>
                                                             </td>
                                                             <td>
-                                                                <a href="{{url('brands/edit/'.$row->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
-                                                                <a href="{{url('brands/delete/'.$row->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                                                <a href="{{url('category/edit/'.$row->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
+                                                                <a href="{{url('category/delete/'.$row->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 
                                                                 @if($row->status==1)
-                                                                <a href="{{url('brands/inactive/'.$row->id)}}" class="btn btn-xs btn-warning"><i class="fa fa-arrow-down"></i></a>
+                                                                <a href="{{url('category/inactive/'.$row->id)}}" class="btn btn-xs btn-warning"><i class="fa fa-arrow-down"></i></a>
                                                                 @else
-                                                                <a href="{{url('brands/active/'.$row->id)}}" class="btn btn-xs btn-success"><i class="fa fa-arrow-up"></i></a>
+                                                                <a href="{{url('category/active/'.$row->id)}}" class="btn btn-xs btn-success"><i class="fa fa-arrow-up"></i></a>
                                                                 @endif
                                                             </td>
                                                         </tr>
