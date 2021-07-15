@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-xs-6"><h4>Manage Category Table</h4></div>
                     <div class="col-xs-6 text-right">
-                        <a href="{{route('add-category')}}" class="btn btn-md btn-primary">Add Brand</a>
+                        <a href="{{route('add-category')}}" class="btn btn-md btn-primary">Add Cateogy</a>
 
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                                         <div class="panel">
                                             <div class="panel-content">
                                                 <div class="table-responsive">
-                                                    <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                                                    <table id="basic-table" class="data-table table-bordered table table-striped nowrap table-hover" cellspacing="0" width="100%">
                                                         <thead>
                                                         <tr>
                                                             <th>SL</th>

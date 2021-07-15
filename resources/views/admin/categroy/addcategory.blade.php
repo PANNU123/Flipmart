@@ -12,7 +12,9 @@
 <div class="row animated fadeInUp">
 
     @include('admin.toastr');
-
+    @error('category_name')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
         <div class="panel  b-primary bt-md">
             <div class="panel-content">
                 <div class="row">

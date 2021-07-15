@@ -12,9 +12,12 @@
 <div class="row animated fadeInUp">
 
     @include('admin.toastr');
-
+    @error('brand_name')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
         <div class="panel  b-primary bt-md">
             <div class="panel-content">
+
                 <div class="row">
                     <div class="col-xs-6"><h4>Add Brand Form</h4></div>
                     <div class="col-xs-6 text-right">
@@ -31,7 +34,6 @@
                                     <input type="text" class="form-control" id="brand_name" name="brand_name" placeholder="Brand name" data-validation="required">
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-9">
                                     <div class="checkbox">

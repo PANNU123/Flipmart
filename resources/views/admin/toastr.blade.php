@@ -17,4 +17,10 @@
         <strong>{{Session('delete')}} </strong>
     </div>
     @endif
+    @if(session('warning'))
+    <div class="alert bg-warning fade in">
+        <a href="#" class="close" data-dismiss="alert">×</a>
+        <strong>{{Session('warning')}} </strong>
+    </div>
+    @endif
 

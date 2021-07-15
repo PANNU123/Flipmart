@@ -114,25 +114,26 @@
                         <nav>
                             <ul class="nav nav-left-lines" id="main-nav">
                                 <!--HOME-->
+                                <li class="{{request()->is('/') ? 'active-item':''}}"><a href="{{url('/')}}" target="_blank"><i class="fa fa-paper-plane" aria-hidden="true"></i><span>Website</span></a></li>
                                 <li class="{{request()->is('home') ? 'active-item':''}}"><a href="{{route('adminhome')}}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
                                 <!--CATEGORY-->
-                                <li class="has-child-item close-item ">
+                                <li class="has-child-item close-item {{request()->is('category/*','sub-category/*') ? 'open-item':''}}" >
                                     <a><i class="fa fa-list" aria-hidden="true"></i><span>Category</span></a>
                                     <ul class="nav child-nav level-1">
                                         {{-- <li ><a><i class="fa fa-list" aria-hidden="true"></i><span>Main Category</span></a> --}}
-                                            <li class="has-child-item close-item ">
+                                            <li class="has-child-item close-item {{request()->is('category/*') ? 'open-item':''}}">
                                                 <a><i class="fa fa-files-o" aria-hidden="true"></i><span>Main Category</span></a>
                                                 <ul class="nav child-nav level-1">
-                                                    <li ><a href="{{route('add-category')}}">Add Category</a></li>
-                                                    <li ><a href="">Manage cateogry</a></li>
+                                                    <li class="{{request()->is('category/add-category') ? 'active-item':''}}"><a href="{{route('add-category')}}">Add Category</a></li>
+                                                    <li class="{{request()->is('category/manage-category') ? 'active-item':''}}"><a href="{{route('manage-category')}}">Manage cateogry</a></li>
                                                 </ul>
                                             </li>
 
-                                            <li class="has-child-item close-item ">
+                                            <li class="has-child-item close-item {{request()->is('sub-category/*') ? 'open-item':''}}">
                                                 <a><i class="fa fa-files-o" aria-hidden="true"></i><span>Sub Category</span></a>
                                                 <ul class="nav child-nav level-1">
-                                                    <li ><a href="">Add Subcategory</a></li>
-                                                    <li ><a href="">Manage Subcateogry</a></li>
+                                                    <li class="{{request()->is('sub-category/add-sub-category') ? 'active-item':''}}"><a href="{{route('add-sub-category')}}">Add Subcategory</a></li>
+                                                    <li class="{{request()->is('sub-category/manage-sub-category') ? 'active-item':''}}"><a href="{{route('manage-sub-category')}}">Manage Subcateogry</a></li>
                                                 </ul>
                                             </li>
                                     </ul>
@@ -143,6 +144,13 @@
                                     <ul class="nav child-nav level-1">
                                         <li class="{{request()->is('brand/add-brand') ? 'active-item':''}}"><a href="{{route('add-brand')}}">Add Brand</a></li>
                                         <li class="{{request()->is('brand/manage-brand') ? 'active-item':''}}"><a href="{{route('manage-brand')}}">Manage Brand</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-child-item close-item {{request()->is('slider/*') ? 'open-item':''}}">
+                                    <a><i class="fa fa-list" aria-hidden="true"></i><span>Slider</span></a>
+                                    <ul class="nav child-nav level-1">
+                                        <li class="{{request()->is('slider/add-slider') ? 'active-item':''}}"><a href="{{route('add-slider')}}">Add Slider</a></li>
+                                        <li class="{{request()->is('slider/manage-slider') ? 'active-item':''}}"><a href="{{route('manage-slider')}}">Manage Slider</a></li>
                                     </ul>
                                 </li>
 
@@ -174,7 +182,7 @@
     <script src="{{asset('backend/adminpanel')}}/vendor/jquery/jquery-1.12.3.min.js"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
     <script src="{{asset('backend/adminpanel')}}/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="{{asset('backend/adminpanel')}}/vendor/nano-scroller/nano-scroller.js"></script>
+    {{-- <script src="{{asset('backend/adminpanel')}}/vendor/nano-scroller/nano-scroller.js"></script> --}}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!--TEMPLATE scripts-->
     <!-- ========================================================= -->
@@ -193,7 +201,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="{{asset('backend/adminpanel')}}/javascripts/examples/tables/data-tables.js"></script>
-    <!--Examples-->
+    <!--Examples -->
     <script>
         $(document).ready(function(){
             $('body').on('change','#brandstatus',function(){
@@ -233,8 +241,44 @@
         });
     </script>
 
-
-
+<script>
+    $(document).ready(function(){
+        $('body').on('change','#subcategorystatus',function(){
+        var id=$(this).attr('data-id');
+        if(this.checked){
+           var status=1;
+        }else{
+            var status=0;
+        }
+       $.ajax({
+        url:'subcategorystatus/'+id+'/'+status,
+        method:'get',
+        success:function(result){
+            console.log(result);
+        }
+       });
+    })
+    });
+</script>
+        <script>
+            $(document).ready(function(){
+                $('body').on('change','#sliderstatus',function(){
+                var id=$(this).attr('data-id');
+                if(this.checked){
+                   var status='active';
+                }else{
+                    var status='inactive';
+                }
+               $.ajax({
+                url:'sliderstatus/'+id+'/'+status,
+                method:'get',
+                success:function(result){
+                    console.log(result);
+                }
+               });
+            })
+            });
+        </script>
 </body>
 
 </html>

@@ -14,7 +14,10 @@ class CategoryController extends Controller
         $category=Category::OrderBy('id','DESC')->get();
         return view('admin.categroy.managecategory',compact('category'));
     }
-    public function saveategory(Request $request){
+    public function savecategory(Request $request){
+        $request->validate([
+            'category_name' => 'required|unique:categories,category_name'
+        ]);
         $category=new Category();
         $category->category_name=$request->category_name;
         $category->category_slug=$this->slugify($request->category_name);

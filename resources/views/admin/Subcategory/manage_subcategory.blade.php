@@ -5,8 +5,8 @@
     <div class="leftside-content-header">
         <ul class="breadcrumbs">
             <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{route('adminhome')}}">Dashboard</a></li>
-            <li><a href="javascript:avoid(0)">Brand</a></li>
-            <li><a href="javascript:avoid(0)">Manage Brand</a></li>
+            <li><a href="javascript:avoid(0)">Category</a></li>
+            <li><a href="javascript:avoid(0)">Manage Subcategory</a></li>
         </ul>
     </div>
 </div>
@@ -17,9 +17,10 @@
         <div class="panel  b-primary bt-md">
             <div class="panel-content">
                 <div class="row">
-                    <div class="col-xs-6"><h4>Manage Brand Table</h4></div>
+                    <div class="col-xs-6"><h4>Manage Subcategory Table</h4></div>
                     <div class="col-xs-6 text-right">
-                        <a href="{{route('add-brand')}}" class="btn btn-md btn-primary">Add Brand</a>
+                        <a href="{{route('add-sub-category')}}" class="btn btn-md btn-primary">Add Subcategory</a>
+
                     </div>
                 </div>
                 <div class="row">
@@ -34,8 +35,8 @@
                                                         <thead>
                                                         <tr>
                                                             <th>SL</th>
-                                                            <th>Brand Name</th>
-                                                            <th>Brand Slug</th>
+                                                            <th>category Name</th>
+                                                            <th>Subcategory Name</th>
                                                             <th>Status</th>
                                                             <th>Action</th>
                                                         </tr>
@@ -44,27 +45,28 @@
                                                             @php
                                                                 $index=1;
                                                             @endphp
-                                                            @foreach ($brand as $row )
+                                                            @foreach ($subcategory as $row )
                                                         <tr>
                                                             <td>{{$index++}}</td>
-                                                            <td>{{$row->brand_name}}</td>
-                                                            <td>{{$row->brand_slug}}</td>
+                                                            <td>{{$row->category->category_name}}</td>
+                                                            <td>{{$row->subcategory_name}}</td>
+
                                                             <td>
                                                                 {{-- @if($row->status==1)
                                                                 <span class="badge bg-primary">Acitve</span>
                                                                 @else()
                                                                 <span class="badge bg-danger">Inacitve</span>
                                                                 @endif --}}
-                                                                <input type="checkbox" data-size="mini" data-toggle="toggle" data-on="Active" data-off="Inactive" id="brandstatus"  data-id="{{$row->id}}" {{ $row->status==1 ? 'checked' :''}}>
+                                                                <input type="checkbox" data-size="mini" data-toggle="toggle" data-on="Active" data-off="Inactive" id="subcategorystatus"  data-id="{{$row->id}}" {{ $row->status==1 ? 'checked' :''}}>
                                                             </td>
                                                             <td>
-                                                                <a href="{{url('brands/edit/'.$row->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
-                                                                <a href="{{url('brands/delete/'.$row->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                                                <a href="{{url('subcategory/edit/'.$row->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i></a>
+                                                                <a href="{{url('subcategory/delete/'.$row->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
 
                                                                 @if($row->status==1)
-                                                                <a href="{{url('brands/inactive/'.$row->id)}}" class="btn btn-xs btn-warning"><i class="fa fa-arrow-down"></i></a>
+                                                                <a href="{{url('subcategory/inactive/'.$row->id)}}" class="btn btn-xs btn-warning"><i class="fa fa-arrow-down"></i></a>
                                                                 @else
-                                                                <a href="{{url('brands/active/'.$row->id)}}" class="btn btn-xs btn-success"><i class="fa fa-arrow-up"></i></a>
+                                                                <a href="{{url('subcategory/active/'.$row->id)}}" class="btn btn-xs btn-success"><i class="fa fa-arrow-up"></i></a>
                                                                 @endif
                                                             </td>
                                                         </tr>
