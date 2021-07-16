@@ -24,9 +24,11 @@ class SliderController extends Controller
     }
     public function Slideremvoe($id){
        try{
-           $id=base64_decode($id);
         $slider=Slider::find($id);
-        unlink(public_path("fontend/img/upload/"). $slider->image);
+        $images=json_decode($slider->image);
+        foreach( $images as $row){
+            unlink(public_path("fontend/img/upload/").$row );
+        }
         $slider->delete();
        }catch(Exception $exception){
              return redirect()->back()->with('warning','Slider did not delete successfully');
@@ -37,27 +39,48 @@ class SliderController extends Controller
             $request->validate([
             'title' => 'required|unique:sliders,title',
             'subtitle' => 'required|max:30',
-            'image' => 'required| mimes:jpg,jpeg,png,gif',
+            'image' => 'required',
             'url' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);
+        /*********Iamge Upload*********/
+        // $image=$request->file('image');
+        // $filex=$image->getClientOriginalExtension();
+        // $fileName=date('Ymdhis.') . $filex;
+        // Image::make($image)->save(public_path('fontend/img/upload/').$fileName);
 
-        $image=$request->file('image');
-        $filex=$image->getClientOriginalExtension();
-        $fileName=date('Ymdhis.') . $filex;
-        Image::make($image)->save(public_path('fontend/img/upload/').$fileName);
+        /***********Multiple Image***********/
+        try{
+            $images=[];
+            if($request->hasFile('image')){
+                $s=0;
+                foreach($request->file('image') as $file){
+                    $filex=$file->getClientOriginalExtension();
+                    $fileName=date('Ymdhis_').$s.'.' . $filex;
+                    Image::make($file)
+                    ->resize(250,250)
+                    ->save(public_path('fontend/img/upload/').$fileName);
+                    $images[]=$fileName;
+                    $s++;
+                }
+            }
+        }catch(Exception $exception){
+            dd($exception);
+            return redirect()->back()->with('warning','Image did not upload successfully');
+        }
 
         // $img=$request->file('image');
         // $name_gen=hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
         // Image::make($img)->resize(270,270)->save('fontend/img/upload/'.$name_gen);
         // $img_url='fontend/img/upload/'.$name_gen;
+        /*********************************************/
 
         $slider=new Slider();
         $slider->title=$request->title;
         $slider->subtitle=$request->subtitle;
         $slider->url=$request->url;
-        $slider->image=$fileName;
+        $slider->image=json_encode($images);
         $slider->start=$request->start_date;
         $slider->end=$request->end_date;
         $slider->save();

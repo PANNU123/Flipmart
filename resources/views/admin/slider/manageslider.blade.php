@@ -48,7 +48,15 @@
                                                             @foreach ($sliders as $row )
                                                         <tr>
                                                             <td>{{$index++}}</td>
-                                                            <td class="text-center"> <img src="{{asset('/fontend/img/upload/'.$row->image)}}" width="70px" height="40px" alt=""></td>
+                                                            <td class="text-center">
+                                                            <?php
+                                                                $images= json_decode($row->image);
+                                                                // print_r($images);
+                                                            ?>
+                                                                     <img src="{{asset('/fontend/img/upload/'.$images[0])}}"
+                                                                      width="70px" height="40px" alt="">
+                                                           </td>
+
                                                             <td>{{substr($row->title,0,20)}}</td>
                                                             <td>{{substr($row->subtitle,0,30)}}</td>
                                                             <td>{{$row->start .' - '. $row->end}}</td>
