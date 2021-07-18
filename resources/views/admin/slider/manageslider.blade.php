@@ -44,6 +44,7 @@
                                                         <tbody>
                                                             @php
                                                                 $index=1;
+                                                                
                                                             @endphp
                                                             @foreach ($sliders as $row )
                                                         <tr>
