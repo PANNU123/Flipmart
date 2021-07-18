@@ -58,7 +58,7 @@
                             <div class="form-group">
                                 <label for="email2" class="col-sm-3 control-label">Image</label>
                                 <div class="col-sm-9">
-                                    <input type="file" class="form-control" id="image" value="{{ old('image') }}" name="image"  data-validation="required">
+                                    <input type="file" class="form-control" id="image" value="{{ old('image') }}" name="image[]" multiple data-validation="required">
                                 </div>
                             </div>
 
