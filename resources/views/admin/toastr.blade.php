@@ -23,4 +23,3 @@
         <strong>{{Session('warning')}} </strong>
     </div>
     @endif
-

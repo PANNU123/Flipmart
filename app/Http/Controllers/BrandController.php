@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class BrandController extends Controller
 {
@@ -19,8 +20,9 @@ class BrandController extends Controller
         $brand->brand_name=$request->brand_name;
         $brand->brand_slug= $this->slugify($request->brand_name);
         $brand->save();
-        return redirect()->back()->with("success",'Brand added Successfully!');
-
+        // return redirect()->back()->with("success",'Brand added Successfully!');
+        Toastr::success('Brand added Successfully!', 'Success', ["positionClass" => "toast-top-right"]);
+        return redirect()->back();
     }
     public function manageBrand(){
         $brand=Brand::Orderby('id','DESC')->get();
@@ -30,17 +32,21 @@ class BrandController extends Controller
 
     public function active($cat_id){
         Brand::find( $cat_id)->update(['status'=>1]);
+        // Toastr::success('Status active successfully !', 'Success', ["positionClass" => "toast-top-right"]);
+        // return Redirect()->back();
         return Redirect()->back()->with('status','Status successfully updated');
     }
-
-
     public function inactive($cat_id){
         Brand::find($cat_id)->update(['status'=>0]);
+        // Toastr::success('Status Inactive successfully!', 'warning', ["positionClass" => "toast-top-right"]);
+        // return Redirect()->back();
         return Redirect()->back()->with('status','status successfully update');
     }
     public function brandremvoe($id){
         Brand::find( $id)->delete();
-        return Redirect()->back()->with('delete','Brand Delete successfully');
+        Toastr::error('Brand Delete successfully!', 'Delete', ["positionClass" => "toast-top-right"]);
+        return Redirect()->back();
+        // return Redirect()->back()->with('delete','Brand Delete successfully');
     }
     public function editBrand($id){
         $brand=Brand::find($id);
@@ -62,14 +68,18 @@ class BrandController extends Controller
             'brand_name'=>$request->brand_name,
             'brand_slug'=>$this->slugify($request->brand_name)
         ]);
-        return redirect()->route('manage-brand')->with("success",'Brand Update Successfully!');
+        Toastr::success('Brand Update Successfully!', 'success', ["positionClass" => "toast-top-right"]);
+        return Redirect()->route('manage-brand');
+        // return redirect()->route('manage-brand')->with("success",'Brand Update Successfully!');
 
     }
     public function brandStatus($id,$status){
         $brand=Brand::find($id);
         $brand->status=$status;
         $brand->save();
-        return response()->json(['message','success']);
+        Toastr::info('Brand status update Successfully!', 'Status', ["positionClass" => "toast-top-right"]);
+        return Redirect()->back()->json(['message','success']);
+        // return response()->json(['message','success']);
 
     }
 

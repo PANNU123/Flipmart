@@ -39,7 +39,7 @@ class SliderController extends Controller
     public function saveSlider(Request $request){
             $request->validate([
             'title' => 'required|unique:sliders,title',
-            'subtitle' => 'required|max:30',
+            'subtitle' => 'required',
             'image' => 'required',
             'url' => 'required',
             'start_date' => 'required',

@@ -13,42 +13,6 @@ $(function() {
         success: function(label) {
             $(label).closest('.form-group').removeClass('has-error');
             label.remove();
-        },
-
-        rules: {
-            name: {
-                required: true,
-                minlength: 2,
-                maxlength: 8
-            },
-            username: {
-                required: true,
-                minlength: 2,
-                maxlength: 8
-            },
-            email: {
-                required: true,
-                email: true
-            },
-            password: {
-                required: true,
-                minlength: 4,
-                maxlength: 10
-            },
-            'confirmation': {
-                required: true,
-                minlength: 4,
-                maxlength: 10,
-                equalTo: "#password"
-            },
-            age: {
-                required: true,
-                number: true,
-                range: [18, 100]
-            },
-            url: {
-                url: true
-            }
         }
     });
 

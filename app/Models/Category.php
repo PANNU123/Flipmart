@@ -14,6 +14,10 @@ class Category extends Model
         'status',
     ];
     public function subcategories(){
-        return $this->hasMany(Subcategory::class);
+        return $this->hasMany(Subcategory::class)->where('status',1);
     }
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
 }

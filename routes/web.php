@@ -1,22 +1,33 @@
 <?php
 
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('website.website');
-});
+Route::get('/', [App\Http\Controllers\SiteController\websiteController::class, 'index']);
+Route::get('/category/subcategory/{id}', [App\Http\Controllers\SiteController\websiteController::class, 'subcategories'])->name('subcategoriesid');
+Route::get('/all/category/{id}', [App\Http\Controllers\SiteController\websiteController::class, 'categories'])->name('categoriesid');
+
+
+
+//****************cart***********/
+Route::get('/cart/model/', [App\Http\Controllers\SiteController\CartController::class, 'cartmodel']);
+Route::get('/model/{id}', [App\Http\Controllers\SiteController\CartController::class, 'showproduct']);
+Route::post('/cart/add/product', [App\Http\Controllers\SiteController\CartController::class, 'savecartproduct']);
+Route::get('/shopping/cart/', [App\Http\Controllers\SiteController\CartController::class, 'ShoppingCart'])->name('shoping-cart');
+Route::get('cart/delete/{id}', [App\Http\Controllers\SiteController\CartController::class, 'CartDelete']);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26,7 +37,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 Route::middleware(['auth'])->group(function(){
-
 //**************Brand Route***************//
 Route::get('/product', [App\Http\Controllers\ProductController::class, 'index']);
 Route::get('/brand/add-brand', [App\Http\Controllers\BrandController::class, 'addBrand'])->name('add-brand');
@@ -70,7 +80,24 @@ Route::get('sliders/edit/{id}', [App\Http\Controllers\SliderController::class, '
 Route::get('/slider/manage-slider', [App\Http\Controllers\SliderController::class, 'manageSlider'])->name('manage-slider');
 Route::get('sliders/delete/{id}', [App\Http\Controllers\SliderController::class, 'Slideremvoe']);
 Route::get('/slider/sliderstatus/{id}/{s}', [App\Http\Controllers\SliderController::class, 'SliderStatus']);
+
+
+/*******************Product*****************/
+
+Route::get('/product/add-product', [App\Http\Controllers\ProductController::class, 'addProduct'])->name('add-product');
+Route::post('/product/save-product', [App\Http\Controllers\ProductController::class, 'saveProduct'])->name('save-product');
+Route::post('/product/update-product', [App\Http\Controllers\ProductController::class, 'updateProduct'])->name('update-product');
+Route::get('product/edit/{id}', [App\Http\Controllers\ProductController::class, 'editProduct']);
+Route::get('/product/manage-product', [App\Http\Controllers\ProductController::class, 'manageProduct'])->name('manage-product');
+Route::get('product/delete/{id}', [App\Http\Controllers\ProductController::class, 'remvoeProduct']);
+Route::get('/product/productstatus/{id}/{s}', [App\Http\Controllers\ProductController::class, 'ProductStatus']);
+Route::get('/product/showsubcat/{id}', [App\Http\Controllers\ProductController::class, 'showSbucategory']);
+
+
 });
+
+
+
 
 
 

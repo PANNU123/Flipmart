@@ -61,9 +61,7 @@
                                 <div class="col-sm-9">
                                     <?php
                                         $images=json_decode($slider->image);
-
                                     ?>
-
                                     <input type="file" class="form-control" id="image" value="{{ $images[0]}}"  name="image[]" multiple data-validation="required">
                                    @foreach ($images as $row )
                                    <img src="{{asset('/fontend/img/upload/'.$row)}}"  width="70px" height="50px" alt="">

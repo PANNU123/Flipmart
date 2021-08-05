@@ -12,8 +12,12 @@
     <!--load progress bar-->
     <script src="{{asset('backend/adminpanel')}}/vendor/pace/pace.min.js"></script>
     <link href="{{asset('backend/adminpanel')}}/vendor/pace/pace-theme-minimal.css" rel="stylesheet" />
-
+    <!--Select with searching & tagging-->
+    <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/select2/css/select2.min.css">
+    <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/select2/css/select2-bootstrap.min.css">
     <!--BASIC css-->
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/font-awesome/css/font-awesome.css">
@@ -23,7 +27,8 @@
     <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/data-table/media/css/dataTables.bootstrap.min.css">
     <!-- ========================================================= -->
     <!--Notification msj-->
-
+    <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/bootstrap_time-picker/css/timepicker.css">
     <!--Magnific popup-->
     <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/vendor/magnific-popup/magnific-popup.css">
     <!--TEMPLATE css-->
@@ -142,7 +147,7 @@
                                 <li class="has-child-item close-item {{request()->is('brand/*') ? 'open-item':''}}">
                                     <a><i class="fa fa-list" aria-hidden="true"></i><span>Brand</span></a>
                                     <ul class="nav child-nav level-1">
-                                        <li class="{{request()->is('brand/add-brand') ? 'active-item':''}}"><a href="{{route('add-brand')}}">Add Brand</a></li>
+                                        <li class="{{request()->is('brand/add-brand') ? 'active-item':''}} "><a href="{{route('add-brand')}}">Add Brand</a></li>
                                         <li class="{{request()->is('brand/manage-brand') ? 'active-item':''}}"><a href="{{route('manage-brand')}}">Manage Brand</a></li>
                                     </ul>
                                 </li>
@@ -151,6 +156,14 @@
                                     <ul class="nav child-nav level-1">
                                         <li class="{{request()->is('slider/add-slider') ? 'active-item':''}}"><a href="{{route('add-slider')}}">Add Slider</a></li>
                                         <li class="{{request()->is('slider/manage-slider') ? 'active-item':''}}"><a href="{{route('manage-slider')}}">Manage Slider</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-child-item close-item {{request()->is('product/*') ? 'open-item':''}}">
+                                    <a><i class="fa fa-list" aria-hidden="true"></i><span>Product</span></a>
+                                    <ul class="nav child-nav level-1">
+                                        <li class="{{request()->is('product/add-product') ? 'active-item':''}}"><a href="{{route('add-product')}}">Add Product</a></li>
+                                        <li class="{{request()->is('product/manage-product') ? 'active-item':''}}"><a href="{{route('manage-product')}}">Manage Product</a></li>
+                                        
                                     </ul>
                                 </li>
 
@@ -178,6 +191,9 @@
     </div>
     <!--BASIC scripts-->
     <!-- ========================================================= -->
+    <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
 
     <script src="{{asset('backend/adminpanel')}}/vendor/jquery/jquery-1.12.3.min.js"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
@@ -185,12 +201,15 @@
     {{-- <script src="{{asset('backend/adminpanel')}}/vendor/nano-scroller/nano-scroller.js"></script> --}}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!--TEMPLATE scripts-->
+    <script src="{{asset('backend/adminpanel')}}/vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js"></script>
     <!-- ========================================================= -->
     <script src="{{asset('backend/adminpanel')}}/javascripts/template-script.min.js"></script>
     <script src="{{asset('backend/adminpanel')}}/javascripts/template-init.min.js"></script>
+    <script src="{{asset('backend/adminpanel')}}/vendor/bootstrap_time-picker/js/bootstrap-timepicker.js"></script>
     <!-- SECTION script and examples-->
     <!-- ========================================================= -->
     <!--Notification msj-->
+    <script src="{{asset('backend/adminpanel')}}/vendor/select2/js/select2.min.js"></script>
     <!--morris chart-->
     <script src="{{asset('backend/adminpanel')}}/vendor/chart-js/chart.min.js"></script>
     <!--Gallery with Magnific popup-->
@@ -201,84 +220,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="{{asset('backend/adminpanel')}}/javascripts/examples/tables/data-tables.js"></script>
+    <script src="{{asset('backend/adminpanel')}}/javascripts/examples/script.js"></script>
     <!--Examples -->
-    <script>
-        $(document).ready(function(){
-            $('body').on('change','#brandstatus',function(){
-            var id=$(this).attr('data-id');
-            if(this.checked){
-               var status=1;
-            }else{
-                var status=0;
-            }
-           $.ajax({
-            url:'brandstatus/'+id+'/'+status,
-            method:'get',
-            success:function(result){
-                console.log(result);
-            }
-           });
-        })
-        });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('body').on('change','#Categorystatus',function(){
-            var id=$(this).attr('data-id');
-            if(this.checked){
-               var status=1;
-            }else{
-                var status=0;
-            }
-           $.ajax({
-            url:'categorystatus/'+id+'/'+status,
-            method:'get',
-            success:function(result){
-                console.log(result);
-            }
-           });
-        })
-        });
-    </script>
-
-<script>
-    $(document).ready(function(){
-        $('body').on('change','#subcategorystatus',function(){
-        var id=$(this).attr('data-id');
-        if(this.checked){
-           var status=1;
-        }else{
-            var status=0;
-        }
-       $.ajax({
-        url:'subcategorystatus/'+id+'/'+status,
-        method:'get',
-        success:function(result){
-            console.log(result);
-        }
-       });
-    })
-    });
-</script>
-        <script>
-            $(document).ready(function(){
-                $('body').on('change','#sliderstatus',function(){
-                var id=$(this).attr('data-id');
-                if(this.checked){
-                   var status='active';
-                }else{
-                    var status='inactive';
-                }
-               $.ajax({
-                url:'sliderstatus/'+id+'/'+status,
-                method:'get',
-                success:function(result){
-                    console.log(result);
-                }
-               });
-            })
-            });
-        </script>
+    <script src="{{asset('backend/adminpanel')}}/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!--Examples-->
+    <script src="{{asset('backend/adminpanel')}}/javascripts/examples/forms/validation.js"></script>
+    <!-- include summernote css/js -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </body>
 
 </html>

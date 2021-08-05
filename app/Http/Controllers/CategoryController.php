@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -22,17 +23,23 @@ class CategoryController extends Controller
         $category->category_name=$request->category_name;
         $category->category_slug=$this->slugify($request->category_name);
         $category->save();
-        return redirect()->back()->with('success','Category Added Successfully');
+        Toastr::success('Category added successfully!','Save',["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+        // return redirect()->back()->with('success','Category Added Successfully');
     }
     public function removecategory($id){
         Category::find( $id)->delete();
-        return redirect()->back()->with('delete','Category Delete Successfully');
+        Toastr::error('Category delete successfully!','Remove',["positionClass" => "toast-top-right"]);
+        return redirect()->back();
+        // return redirect()->back()->with('delete','Category Delete Successfully');
     }
     public function categorystatus($id,$status){
         $category=Category::find($id);
         $category->status=$status;
         $category->save();
-        return response()->json(['message','success']);
+        Toastr::info('Status update successfully!','Status',["positionClass" => "toast-top-right"]);
+        return redirect()->back()->json(['message','success']);
+        // return response()->json(['message','success']);
 
     }
     public function editCategory($id){
@@ -45,7 +52,9 @@ class CategoryController extends Controller
             'category_name'=>$request->category_name,
             'category_slug'=>$this->slugify($request->category_name),
         ]);
-        return redirect()->route('manage-category')->with('success','Category Update Successfully');
+        Toastr::info('Category update successfully!','Update',["positionClass" => "toast-top-right"]);
+        return redirect()->route('manage-category');
+        // return redirect()->route('manage-category')->with('success','Category Update Successfully');
     }
 
 
