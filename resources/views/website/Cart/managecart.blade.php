@@ -72,8 +72,14 @@
                                                     <div class="cart-quantity">
                                                         <div class="quant-input">
                                                             <div class="arrows">
-                                                              <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
-                                                              <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                                                              
+                                                                <div class="arrow plus gradient"  id="{{$row->id}}" onclick="cartIncrement(this.id)"><span class="ir"><i class="icon fa fa-sort-asc "></i></span></div>
+                                                               @if ( $row->quantity >1)
+                                                               <div class="arrow minus gradient"  id="{{$row->id}}" onclick="cartDecrement(this.id)"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                                                               @else
+                                                               <div class="arrow minus gradient" style="opacity: 0.5; pointer-events: none" id="{{$row->id}}" onclick="cartDecrement(this.id)"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
+                                                               @endif
+
                                                             </div>
                                                             <input type="text" value="{{$row->quantity}}">
                                                       </div>

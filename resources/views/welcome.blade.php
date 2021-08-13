@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="MediaCenter, Template, eCommerce">
     <meta name="robots" content="all">
-    <title>Open Shop</title>
+    <title >Open Shop</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="{{asset('backend')}}/assets/css/bootstrap.min.css">
@@ -42,11 +42,11 @@
             <div class="header-top-inner">
                 <div class="cnt-account">
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li>
+                        {{-- <li><a href="#"><i class="icon fa fa-user"></i>My Account</a></li> --}}
                         <li><a href="#"><i class="icon fa fa-heart"></i>Wishlist</a></li>
                         <li><a href="{{route('shoping-cart')}}"><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
                         <li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
-                        <li><a href="#"><i class="icon fa fa-lock"></i>Login</a></li>
+                        <li><a href="{{route('user-login')}}"><i class="icon fa fa-lock"></i>Login</a></li>
                     </ul>
                 </div>
                 <!-- /.cnt-account -->
@@ -129,15 +129,18 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu">
+                            @foreach ($data as $carts)
                             <li>
                                 <div class="cart-item product-summary">
                                     <div class="row">
                                         <div class="col-xs-4">
-                                            <div class="image"> <a href="detail.html"><img src="{{asset('backend')}}/assets/images/cart.jpg" alt=""></a> </div>
+                                            <div class="image"> <a href="detail.html"><img src="{{asset($carts->image)}}" alt=""></a> </div>
                                         </div>
                                         <div class="col-xs-7">
-                                            <h3 class="name"><a href="index8a95.html?page-detail">Simple Product</a></h3>
-                                            <div class="price">$600.00</div>
+                                            <h3 class="name"><a href="index8a95.html?page-detail">{{$carts->product_name}}</a></h3>
+                                            <div class="price">Price : {{$carts->selling_price}}</div>
+                                            <h3 class="name">Color:<span style="color: rgb(216, 71, 168)">{{$carts->color}}</span> <br>Size: <span style="color: rgb(115, 58, 189)"> {{$carts->size}}</span></h3>
+
                                         </div>
                                         <div class="col-xs-1 action"> <a href="#"><i class="fa fa-trash"></i></a> </div>
                                     </div>
@@ -145,13 +148,15 @@
                                 <!-- /.cart-item -->
                                 <div class="clearfix"></div>
                                 <hr>
-                                <div class="clearfix cart-total">
-                                    <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
-                                    <div class="clearfix"></div>
-                                    <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a> </div>
-                                <!-- /.cart-total-->
-
                             </li>
+                            @endforeach
+                            <div class="clearfix cart-total">
+                                <div class="pull-right"> <span class="text">Sub Total :</span><span class='price'>$600.00</span> </div>
+                                <div class="clearfix"></div>
+                                <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>
+                             </div>
+                            <!-- /.cart-total-->
+                            
                         </ul>
                         <!-- /.dropdown-menu-->
                     </div>

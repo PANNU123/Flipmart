@@ -67,4 +67,13 @@ class CartController extends Controller
         Toastr::success('Cart Delete successfully!', 'Delete', ["positionClass" => "toast-top-right"]);
         return Redirect()->back();
     }
+
+    public function CartIncreamnet($id){
+        $check=Cart::where('id',$id)->increment('quantity');
+       return response()->json($check);   
+    }
+    public function CartDecreamnet($id){
+        $check=Cart::where('id',$id)->decrement('quantity');
+       return response()->json($check);   
+    }
 }

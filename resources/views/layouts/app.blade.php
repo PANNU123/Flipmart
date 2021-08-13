@@ -35,10 +35,7 @@
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{asset('backend/adminpanel')}}/stylesheets/css/style.css">
 
-
-
 </head>
-
 <body>
     <div class="wrap">
         <!-- page HEADER -->
@@ -166,9 +163,37 @@
                                         
                                     </ul>
                                 </li>
-
                                 <!--DOCUMENTATION-->
 
+                                {{-- shipping area --}}
+                                <li class="has-child-item close-item {{request()->is('division/*','district/*','state/*') ? 'open-item':''}}" >
+                                    <a><i class="fa fa-list" aria-hidden="true"></i><span>Shipping Area</span></a>
+                                    <ul class="nav child-nav level-1">
+                                        {{-- <li ><a><i class="fa fa-list" aria-hidden="true"></i><span>Main Category</span></a> --}}
+                                            <li class="has-child-item close-item {{request()->is('division/*') ? 'open-item':''}}">
+                                                <a><i class="fa fa-files-o" aria-hidden="true"></i><span>Division</span></a>
+                                                <ul class="nav child-nav level-1">
+                                                    <li class="{{request()->is('division/add') ? 'active-item':''}}"><a href="{{route('add-division')}}">Add Division</a></li>
+                                                    <li class="{{request()->is('division/manage') ? 'active-item':''}}"><a href="{{route('manage-division')}}">Manage Division</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li class="has-child-item close-item {{request()->is('district/*') ? 'open-item':''}}">
+                                                <a><i class="fa fa-files-o" aria-hidden="true"></i><span>District</span></a>
+                                                <ul class="nav child-nav level-1">
+                                                    <li class="{{request()->is('district/add') ? 'active-item':''}}"><a href="{{route('add-district')}}">Add District</a></li>
+                                                    <li class="{{request()->is('district/manage') ? 'active-item':''}}"><a href="{{route('manage-district')}}">Manage District</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="has-child-item close-item {{request()->is('state/*') ? 'open-item':''}}">
+                                                <a><i class="fa fa-files-o" aria-hidden="true"></i><span>State</span></a>
+                                                <ul class="nav child-nav level-1">
+                                                    <li class="{{request()->is('state/add') ? 'active-item':''}}"><a href="{{route('add-state')}}">Add State</a></li>
+                                                    <li class="{{request()->is('state/manage') ? 'active-item':''}}"><a href="{{route('manage-state')}}">Manage State</a></li>
+                                                </ul>
+                                            </li>
+                                    </ul>
+                                </li>
 
                             </ul>
                         </nav>

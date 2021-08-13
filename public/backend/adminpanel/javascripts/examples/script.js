@@ -86,6 +86,43 @@ $(document).ready(function(){
     });
 })
 });
+$(document).ready(function(){
+    $('body').on('change','#districtstatus',function(){
+    var id=$(this).attr('data-id');
+    if(this.checked){
+        var status=1;
+    }else{
+        var status=0;
+    }
+    $.ajax({
+    url:'divisionstatus/'+id+'/'+status,
+    method:'get',
+    success:function(result){
+        console.log(result);
+    }
+    });
+})
+});
+
+$(document).ready(function(){
+    $('body').on('change','#divisionstatus',function(){
+    var id=$(this).attr('data-id');
+    if(this.checked){
+        var status=1;
+    }else{
+        var status=0;
+    }
+    $.ajax({
+    url:'divisionstatus/'+id+'/'+status,
+    method:'get',
+    success:function(result){
+        console.log(result);
+    }
+    });
+})
+});
+
+
 
 $(document).ready(function(){
     $('body').on('change','input[name="warranty"]',function(){
@@ -110,6 +147,27 @@ $(document).ready(function(){
     });
   })
 });
+
+
+
+
+$(document).ready(function(){
+    $('body').on('change','#division',function(){
+    var id=$(this).val();
+    $.ajax({
+    url:'/division/district/'+id,
+    method:'get',
+    success:function(result){
+        $("#district_id").html(result);
+     }
+    });
+  })
+});
+
+
+
+
+
 
 $('.range-datepicker').datepicker({
     format: "dd/mm/yy",

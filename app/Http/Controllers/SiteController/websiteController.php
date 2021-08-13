@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SiteController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
@@ -17,14 +18,17 @@ class websiteController extends Controller
         $categories=Category::with('subcategories')->where('status',1)->get();
         $brands=Brand::where('status',1)->get();
         $sliders=Slider::where('status','active')->get();
-        return view('website.website',compact('categories','brands','sliders'));
+        // $cart=Cart::where('user_ip',request()->ip())->get();
+        $data=Cart::where('user_ip',request()->ip())->get();
+        return view('website.website',compact('categories','brands','sliders','data'));
     }
     public function subcategories($id){
        
         $brands=Brand::where('status',1)->get();
         $subcat=Subcategory::where('id',$id)->get('id');
         $products=Product::where('subcategory_id',$id)->get();
-        return view('website.site.subcategory',compact('brands','products'));
+        $data=Cart::where('user_ip',request()->ip())->get();
+        return view('website.site.subcategory',compact('brands','products','data'));
     }
     public function categories($id){
         $brands=Brand::where('status',1)->get();

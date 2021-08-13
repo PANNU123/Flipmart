@@ -79,3 +79,24 @@ function updateProduct(){
          
      })
 }
+
+  function cartIncrement(rowId){
+      $.ajax({
+        method:"GET",
+        dataType:"json",
+        url:'/cart/product/increment/'+rowId,
+        success:function(data){
+          window.location.reload();
+        }
+      });
+}
+function cartDecrement(rowId){
+  $.ajax({
+    method:"GET",
+    dataType:"json",
+    url:'/cart/product/decrement/'+rowId,
+    success:function(data){
+      window.location.reload();
+    }
+  });
+}
